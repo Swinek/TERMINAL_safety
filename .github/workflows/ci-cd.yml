@@ -1,0 +1,123 @@
+# Plik: .github/workflows/ci-cd.yml
+
+name: .NET and Node.js CI/CD
+
+# Wyzwalacze: Uruchom ten potok (pipeline) przy...
+on:
+  push:
+    branches: [ "main" ] # ...każdym 'push' do gałęzi 'main'
+  pull_request:
+    branches: [ "main" ] # ...każdym 'pull request' kierowanym do 'main'
+
+jobs:
+  # === ETAP 1: TESTOWANIE ===
+
+  lint-frontend:
+    name: 🎨 Lint Frontend
+    runs-on: ubuntu-latest
+    steps:
+    - name: Pobranie kodu
+      uses: actions/checkout@v4
+
+    - name: Ustawienie Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20 # Użyj wersji Node.js, której używasz
+
+    - name: Instalacja zależności klienta
+      working-directory: ./Client
+      run: npm ci # 'ci' jest szybsze i bezpieczniejsze dla CI niż 'install'
+
+    - name: Uruchomienie Lintera (ESLint)
+      working-directory: ./Client
+      run: npm run lint # Zakładając, że masz skrypt 'lint' w package.json
+
+  test-backend:
+    name: 🧪 Test Backend (.NET)
+    runs-on: ubuntu-latest
+    steps:
+    - name: Pobranie kodu
+      uses: actions/checkout@v4
+
+    - name: Ustawienie .NET SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x # Użyj wersji .NET, której używasz
+
+    - name: Uruchomienie testów .NET
+      run: dotnet test ./Server/Terminal.Backend.sln --configuration Release
+
+  test-e2e:
+    name: 🎭 Test End-to-End (Playwright)
+    runs-on: ubuntu-latest
+    # Uruchom ten test tylko, jeśli linting i testy backendu przeszły pomyślnie
+    needs: [lint-frontend, test-backend]
+    steps:
+    - name: Pobranie kodu
+      uses: actions/checkout@v4
+
+    - name: Ustawienie Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+
+    - name: Uruchomienie usług (Backend + Frontend)
+      # Używamy pliku produkcyjnego, aby testować to, co pójdzie na produkcję
+      run: docker-compose -f compose.yaml -f compose.prod.yaml up -d
+    
+    - name: Czekaj na uruchomienie usług
+      run: sleep 20 # Daje czas kontenerom na pełne uruchomienie
+
+    - name: Instalacja zależności klienta (w tym Playwright)
+      working-directory: ./Client
+      run: npm ci
+
+    - name: Instalacja przeglądarek dla Playwright
+      working-directory: ./Client
+      run: npx playwright install --with-deps
+
+    - name: Uruchomienie testów Playwright
+      working-directory: ./Client
+      run: npx playwright test # Uruchamia testy ze specyfikacji
+
+    - name: Zatrzymanie usług
+      # Uruchom ten krok zawsze, nawet jeśli testy się nie powiodą
+      if: always()
+      run: docker-compose -f compose.yaml -f compose.prod.yaml down
+
+  # === ETAP 2: WDRAŻANIE (CD) ===
+
+  deploy:
+    name: 🚀 Wdrażanie na Produkcję
+    runs-on: ubuntu-latest
+    # Zależności: Uruchom tylko po pomyślnym teście E2E
+    needs: test-e2e
+    
+    # Warunek: Uruchom ten krok TYLKO przy 'push' do 'main',
+    # a NIE przy pull requestach.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: Pobranie kodu
+      uses: actions/checkout@v4
+
+    - name: Ustawienie klucza SSH
+      uses: webfactory/ssh-agent@v0.9.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Dodanie serwera do znanych hostów
+      run: |
+        mkdir -p ~/.ssh
+        ssh-keyscan ${{ secrets.DEPLOY_HOST }} >> ~/.ssh/known_hosts
+
+    - name: Instalacja Ansible
+      run: pip install ansible
+
+    - name: Uruchomienie Ansible Playbook
+      working-directory: ./ansible
+      run: |
+        # Użyj flagi -i do podania hosta i użytkownika
+        ansible-playbook deploy-playbook.yml \
+          -i ${{ secrets.DEPLOY_HOST }}, \
+          --user ${{ secrets.DEPLOY_USER }}
