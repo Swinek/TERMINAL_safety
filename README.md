@@ -24,3 +24,4 @@ docker compose --env-file .env.sample.local up --watch
 - Backend Url: http://localhost:5006
 # TERMINAL_safety
 # TERMINAL_safety
+# TERMINAL_safety
