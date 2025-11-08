@@ -22,4 +22,8 @@ RUN dotnet publish "Terminal.Backend.Api.csproj" -c Release -o /app/publish /p:U
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+RUN useradd -m app
+USER app
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:8080/health || exit 1 # Musisz mieć endpoint /health
 ENTRYPOINT ["dotnet", "Terminal.Backend.Api.dll"]

@@ -5,8 +5,9 @@ services:
        - ALL
     security_opt:
       - "apparmor:docker-default"
+      - "no-new-privileges"
     container_name: terminal.client
-    restart: always
+    restart: on-failure:5
     depends_on:
       server:
         condition: service_healthy
@@ -16,8 +17,9 @@ services:
       - ALL
     security_opt:
       - "apparmor:docker-default"
+      - "no-new-privileges"
     container_name: terminal.server
-    restart: always
+    restart: on-failure:5
     environment:
       - ASPNETCORE_URLS=${ASPNETCORE_URLS}
       - Jwt__Issuer=${Jwt__Issuer}
@@ -40,7 +42,7 @@ services:
   database:
     image: postgres:17-bookworm
     container_name: terminal.postgres
-    restart: always
+    restart: on-failure:5
     pull_policy: missing
     volumes:
       - terminalData:/var/lib/postgresql/data

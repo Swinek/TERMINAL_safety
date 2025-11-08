@@ -5,7 +5,20 @@ services:
       - ALL
     security_opt:
       - "apparmor:docker-default"
-    image: ghcr.io/flaviusaugustus/terminal/client:latest
+      - "no-new-privileges"
+    pids_limit: 100
+    restart: on-failure:5
+    deploy: 
+      limits: 
+        cpus: '0.50' 
+        memory: 256M
+    
+    build: # Mówi Dockerowi, żeby zbudował obraz
+      context: ./Client # Z tego folderu
+      dockerfile: Dockerfile # Używając tego pliku
+    image: ghcr.io/swinek/terminal_safety/client:latest # I nazwał go tak
+    # ⬆️ WAŻNE ZMIANY TUTAJ ⬆️
+    
     ports:
       - 60005:5173
 
@@ -14,7 +27,21 @@ services:
       - ALL
     security_opt:
       - "apparmor:docker-default"
-    image: ghcr.io/flaviusaugustus/terminal/server:latest
+      - "no-new-privileges"
+    pids_limit: 200
+    restart: on-failure:5
+    deploy:
+      limits:
+        cpus: '1.0'
+        memory: 512M
+        
+    # ⬇️ WAŻNE ZMIANY TUTAJ ⬇️
+    build: # Mówi Dockerowi, żeby zbudował obraz
+      context: ./Server/src # Z tego folderu
+      dockerfile: Dockerfile # Używając tego pliku
+    image: ghcr.io/swinek/terminal_safety/server:latest # I nazwał go tak
+    # ⬆️ WAŻNE ZMIANY TUTAJ ⬆️
+    
     ports:
       - 60004:5006
     environment:
