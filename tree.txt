@@ -1,0 +1,709 @@
+.
+├── ansible
+│   └── deploy-playbook.yml
+├── Client
+│   ├── Dockerfile
+│   ├── Dockerfile.dev
+│   ├── eslint.config.js
+│   ├── index.html
+│   ├── nginx.conf
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── playwright.config.ts
+│   ├── postcss.config.js
+│   ├── prettier.config.ts
+│   ├── public
+│   │   └── favicon.ico
+│   ├── src
+│   │   ├── api
+│   │   │   ├── apiClient.ts
+│   │   │   └── models
+│   │   │       ├── Parameters.ts
+│   │   │       ├── Project.ts
+│   │   │       ├── Recipe.ts
+│   │   │       ├── Role.ts
+│   │   │       ├── Sample.ts
+│   │   │       ├── Step.ts
+│   │   │       ├── Tag.ts
+│   │   │       └── User.ts
+│   │   ├── App.tsx
+│   │   ├── components
+│   │   │   ├── addParameter
+│   │   │   │   ├── NewParameterAllowedValues.tsx
+│   │   │   │   ├── NewParameterForm.tsx
+│   │   │   │   └── NewParameterInputs.tsx
+│   │   │   ├── addRecipe
+│   │   │   │   ├── AddRecipeActions.tsx
+│   │   │   │   └── AddRecipeDialog.tsx
+│   │   │   ├── addSample
+│   │   │   │   ├── AddSampleActions.tsx
+│   │   │   │   ├── AddSampleDialog.tsx
+│   │   │   │   ├── LabeledTagInput.tsx
+│   │   │   │   └── SelectRecipe.tsx
+│   │   │   ├── dashboard
+│   │   │   │   └── EntityAmountCard.tsx
+│   │   │   ├── login
+│   │   │   │   ├── LoginForm.tsx
+│   │   │   │   └── RememberMeButton.tsx
+│   │   │   ├── navbar
+│   │   │   │   ├── MobileNavbarToggle.tsx
+│   │   │   │   ├── MobileNavbar.tsx
+│   │   │   │   ├── SidebarItem.tsx
+│   │   │   │   ├── SidebarItemWithSubLinks.tsx
+│   │   │   │   ├── SidebarLinkGroup.tsx
+│   │   │   │   ├── Sidebar.tsx
+│   │   │   │   ├── SidebarUserProfile.tsx
+│   │   │   │   └── TerminalSidebarContent.tsx
+│   │   │   ├── parameters
+│   │   │   │   ├── ParameterDetails.tsx
+│   │   │   │   ├── Parameters.tsx
+│   │   │   │   └── ParamsTable.tsx
+│   │   │   ├── projects
+│   │   │   │   ├── ProjectEdit.tsx
+│   │   │   │   └── Projects.tsx
+│   │   │   ├── recipes
+│   │   │   │   ├── EditRecipe.tsx
+│   │   │   │   ├── RecipeDetails.tsx
+│   │   │   │   ├── Recipes.tsx
+│   │   │   │   └── Step.tsx
+│   │   │   ├── register
+│   │   │   │   └── RegisterForm.tsx
+│   │   │   ├── samples
+│   │   │   │   ├── EditSample.tsx
+│   │   │   │   ├── SampleDetails.tsx
+│   │   │   │   └── Samples.tsx
+│   │   │   ├── shared
+│   │   │   │   ├── common
+│   │   │   │   │   ├── ChipSet.tsx
+│   │   │   │   │   ├── Chip.tsx
+│   │   │   │   │   ├── Detail.tsx
+│   │   │   │   │   ├── IconButton.tsx
+│   │   │   │   │   ├── Loader.tsx
+│   │   │   │   │   ├── Logo.tsx
+│   │   │   │   │   ├── TerminalBanner.tsx
+│   │   │   │   │   └── VisibleForRoles.tsx
+│   │   │   │   ├── dialog
+│   │   │   │   │   ├── ConfirmDeleteDialog.tsx
+│   │   │   │   │   ├── DialogButton.tsx
+│   │   │   │   │   ├── DialogComp.tsx
+│   │   │   │   │   ├── DialogLoader.tsx
+│   │   │   │   │   └── DialogSubmitButton.tsx
+│   │   │   │   ├── form
+│   │   │   │   │   ├── FieldWithLabelAndValidation.tsx
+│   │   │   │   │   ├── FormInput.tsx
+│   │   │   │   │   ├── Form.tsx
+│   │   │   │   │   ├── HeaderedTextArea.tsx
+│   │   │   │   │   ├── LabeledCheckbox.tsx
+│   │   │   │   │   ├── LabeledField.tsx
+│   │   │   │   │   ├── LabeledSelect.tsx
+│   │   │   │   │   ├── LabeledSwitch.tsx
+│   │   │   │   │   ├── LabeledTextArea.tsx
+│   │   │   │   │   ├── SelectedValues.tsx
+│   │   │   │   │   └── SubmitButton.tsx
+│   │   │   │   ├── loader
+│   │   │   │   │   ├── ComponentOrLoader.tsx
+│   │   │   │   │   ├── FullScreenLoader.tsx
+│   │   │   │   │   └── Loader.tsx
+│   │   │   │   ├── parameterList
+│   │   │   │   │   ├── DragHandle.tsx
+│   │   │   │   │   ├── ParameterBox.tsx
+│   │   │   │   │   ├── ParameterDroppable.tsx
+│   │   │   │   │   ├── ParameterSelectList.tsx
+│   │   │   │   │   └── ParameterSelect.tsx
+│   │   │   │   ├── steps
+│   │   │   │   │   ├── Steps.tsx
+│   │   │   │   │   ├── StepTabList.tsx
+│   │   │   │   │   └── StepTab.tsx
+│   │   │   │   └── table
+│   │   │   │       ├── CardView.tsx
+│   │   │   │       ├── IndeterminateCheckbox.tsx
+│   │   │   │       ├── RowActions.tsx
+│   │   │   │       ├── StepsTableManagement.tsx
+│   │   │   │       ├── TableCard.tsx
+│   │   │   │       ├── TableManagment.tsx
+│   │   │   │       ├── TableOrCardLayout.tsx
+│   │   │   │       └── TableView.tsx
+│   │   │   ├── tags
+│   │   │   │   ├── TagDetails.tsx
+│   │   │   │   ├── TagEdit.tsx
+│   │   │   │   └── Tags.tsx
+│   │   │   └── users
+│   │   │       ├── ChangePasswordDialog.tsx
+│   │   │       ├── UserDetails.tsx
+│   │   │       ├── UsersRowActions.tsx
+│   │   │       └── Users.tsx
+│   │   ├── hooks
+│   │   │   ├── parameters
+│   │   │   │   ├── useAddParameter.ts
+│   │   │   │   ├── useDeactivateParameter.ts
+│   │   │   │   ├── useGetParameters.ts
+│   │   │   │   └── useParameterColumns.ts
+│   │   │   ├── projects
+│   │   │   │   ├── useAddProject.ts
+│   │   │   │   ├── useDeleteProject.ts
+│   │   │   │   ├── useGetAllProjects.ts
+│   │   │   │   ├── useGetProjectAmount.ts
+│   │   │   │   ├── useGetProjectDetails.ts
+│   │   │   │   ├── useGetProjects.ts
+│   │   │   │   ├── useUpdateProjectName.ts
+│   │   │   │   └── useUpdateProjectStatus.ts
+│   │   │   ├── recipes
+│   │   │   │   ├── useAddRecipeContext.tsx
+│   │   │   │   ├── useAddRecipe.ts
+│   │   │   │   ├── useDeleteRecipe.ts
+│   │   │   │   ├── useGetRecipeAmount.ts
+│   │   │   │   ├── useGetRecipeDetails.ts
+│   │   │   │   ├── useGetRecipes.ts
+│   │   │   │   ├── useRecipeDragContext.tsx
+│   │   │   │   └── useUpdateRecipe.ts
+│   │   │   ├── samples
+│   │   │   │   ├── useAddSample.ts
+│   │   │   │   ├── useDeleteSample.ts
+│   │   │   │   ├── useGetRecentSamples.ts
+│   │   │   │   ├── useGetSampleDetails.ts
+│   │   │   │   ├── useGetSamples.ts
+│   │   │   │   ├── useSampleAmount.ts
+│   │   │   │   └── useUpdateSample.ts
+│   │   │   ├── steps
+│   │   │   │   ├── useEditableStepsTable.tsx
+│   │   │   │   └── useStepsForm.tsx
+│   │   │   ├── tags
+│   │   │   │   ├── useAddTag.ts
+│   │   │   │   ├── useDeleteTag.ts
+│   │   │   │   ├── useGetAllTags.ts
+│   │   │   │   ├── useGetTagAmount.ts
+│   │   │   │   ├── useGetTagDetails.ts
+│   │   │   │   ├── useGetTags.ts
+│   │   │   │   ├── useUpdateTagName.ts
+│   │   │   │   └── useUpdateTagStatus.ts
+│   │   │   ├── users
+│   │   │   │   ├── auth
+│   │   │   │   │   ├── useIsAuthenticated.ts
+│   │   │   │   │   ├── useLoginMutation.ts
+│   │   │   │   │   └── useLogoutMutation.ts
+│   │   │   │   ├── useChangeUserPassword.ts
+│   │   │   │   ├── useDeleteUser.ts
+│   │   │   │   ├── useGetUserDetails.ts
+│   │   │   │   ├── useGetUsers.ts
+│   │   │   │   ├── useUpdateUserEmail.ts
+│   │   │   │   ├── useUpdateUserRole.ts
+│   │   │   │   ├── useUserAmount.ts
+│   │   │   │   ├── useUserData.ts
+│   │   │   │   └── useUserRoles.ts
+│   │   │   ├── useSessionStore.ts
+│   │   │   └── useTableColumns.tsx
+│   │   ├── index.css
+│   │   ├── main.tsx
+│   │   ├── pages
+│   │   │   ├── AddParameter.tsx
+│   │   │   ├── AddProject.tsx
+│   │   │   ├── AddRecipe.tsx
+│   │   │   ├── AddSample.tsx
+│   │   │   ├── AddTag.tsx
+│   │   │   ├── DashboardPage.tsx
+│   │   │   ├── layouts
+│   │   │   │   ├── AuthorizedLayout.tsx
+│   │   │   │   ├── NoNavbarLayout.tsx
+│   │   │   │   └── TableLayout.tsx
+│   │   │   ├── LoginOrNotFound.tsx
+│   │   │   ├── LoginPage.tsx
+│   │   │   ├── NotFoundPage.tsx
+│   │   │   ├── ParametersPage.tsx
+│   │   │   ├── ProjectsPage.tsx
+│   │   │   ├── RecipesPage.tsx
+│   │   │   ├── RegisterPage.tsx
+│   │   │   ├── SamplesPage.tsx
+│   │   │   ├── TagsPage.tsx
+│   │   │   └── UsersPage.tsx
+│   │   ├── tailwind.config.js
+│   │   ├── utils
+│   │   │   ├── colorUtils.tsx
+│   │   │   ├── mapUtils.tsx
+│   │   │   ├── queryClient.tsx
+│   │   │   ├── tableUtils.tsx
+│   │   │   └── toast.utils.tsx
+│   │   └── vite-env.d.ts
+│   ├── tailwind.config.js
+│   ├── tests
+│   │   └── example.spec.ts
+│   ├── tsconfig.app.json
+│   ├── tsconfig.json
+│   ├── typedoc.json
+│   └── vite.config.ts
+├── compose.override.yaml
+├── compose.prod.yaml
+├── compose.yaml
+├── Config
+│   └── nginx
+│       └── nginx.conf
+├── LICENSE
+├── package-lock.json
+├── README.md
+├── Server
+│   ├── src
+│   │   ├── Dockerfile
+│   │   ├── Terminal.Backend.Api
+│   │   │   ├── appsettings.Development.json
+│   │   │   ├── appsettings.json
+│   │   │   ├── appsettings.Test.json
+│   │   │   ├── AssemblyReference.cs
+│   │   │   ├── Extensions.cs
+│   │   │   ├── Modules
+│   │   │   │   ├── ParametersModule.cs
+│   │   │   │   ├── PingModule.cs
+│   │   │   │   ├── ProjectsModule.cs
+│   │   │   │   ├── RecipeModule.cs
+│   │   │   │   ├── SamplesModule.cs
+│   │   │   │   ├── TagsModule.cs
+│   │   │   │   └── UsersModule.cs
+│   │   │   ├── Program.cs
+│   │   │   ├── Properties
+│   │   │   │   └── launchSettings.json
+│   │   │   ├── Swagger
+│   │   │   │   └── SwaggerSetup.cs
+│   │   │   └── Terminal.Backend.Api.csproj
+│   │   ├── Terminal.Backend.Application
+│   │   │   ├── Abstractions
+│   │   │   │   ├── IConvertDtoService.cs
+│   │   │   │   ├── IJwtProvider.cs
+│   │   │   │   ├── IMailService.cs
+│   │   │   │   └── IPasswordHasher.cs
+│   │   │   ├── AssemblyReference.cs
+│   │   │   ├── Commands
+│   │   │   │   ├── Parameter
+│   │   │   │   │   ├── ChangeStatus
+│   │   │   │   │   │   ├── ChangeParameterStatusCommand.cs
+│   │   │   │   │   │   └── ChangeParameterStatusCommandHandler.cs
+│   │   │   │   │   └── Define
+│   │   │   │   │       ├── DefineParameterCommand.cs
+│   │   │   │   │       └── DefineParameterCommandHandler.cs
+│   │   │   │   ├── Project
+│   │   │   │   │   ├── ChangeStatus
+│   │   │   │   │   │   ├── ChangeProjectStatusCommand.cs
+│   │   │   │   │   │   └── ChangeProjectStatusCommandHandler.cs
+│   │   │   │   │   ├── Create
+│   │   │   │   │   │   ├── CreateProjectCommand.cs
+│   │   │   │   │   │   └── CreateProjectCommandHandler.cs
+│   │   │   │   │   ├── Delete
+│   │   │   │   │   │   ├── DeleteProjectCommand.cs
+│   │   │   │   │   │   └── DeleteProjectCommandHandler.cs
+│   │   │   │   │   └── Update
+│   │   │   │   │       ├── UpdateProjectCommand.cs
+│   │   │   │   │       └── UpdateProjectCommandHandler.cs
+│   │   │   │   ├── Recipe
+│   │   │   │   │   ├── Create
+│   │   │   │   │   │   ├── CreateRecipeCommand.cs
+│   │   │   │   │   │   └── CreateRecipeCommandHandler.cs
+│   │   │   │   │   ├── Delete
+│   │   │   │   │   │   ├── DeleteRecipeCommand.cs
+│   │   │   │   │   │   └── DeleteRecipeCommandHandler.cs
+│   │   │   │   │   └── Update
+│   │   │   │   │       ├── UpdateRecipeCommand.cs
+│   │   │   │   │       └── UpdateRecipeCommandHandler.cs
+│   │   │   │   ├── Sample
+│   │   │   │   │   ├── Create
+│   │   │   │   │   │   ├── CreateSampleCommand.cs
+│   │   │   │   │   │   └── CreateSampleCommandHandler.cs
+│   │   │   │   │   ├── Delete
+│   │   │   │   │   │   ├── DeleteSampleCommand.cs
+│   │   │   │   │   │   └── DeleteSampleCommandHandler.cs
+│   │   │   │   │   └── Update
+│   │   │   │   │       ├── UpdateSampleCommand.cs
+│   │   │   │   │       └── UpdateSampleCommandHandler.cs
+│   │   │   │   ├── Tag
+│   │   │   │   │   ├── ChangeStatus
+│   │   │   │   │   │   ├── ChangeTagStatusCommand.cs
+│   │   │   │   │   │   └── ChangeTagStatusCommandHandler.cs
+│   │   │   │   │   ├── Create
+│   │   │   │   │   │   ├── CreateTagCommand.cs
+│   │   │   │   │   │   └── CreateTagCommandHandler.cs
+│   │   │   │   │   ├── Delete
+│   │   │   │   │   │   ├── DeleteTagCommand.cs
+│   │   │   │   │   │   └── DeleteTagCommandHandler.cs
+│   │   │   │   │   └── Update
+│   │   │   │   │       ├── UpdateTagCommand.cs
+│   │   │   │   │       └── UpdateTagCommandHandler.cs
+│   │   │   │   └── Users
+│   │   │   │       ├── Create
+│   │   │   │       │   ├── CreateUserCommand.cs
+│   │   │   │       │   └── CreateUserCommandHandler.cs
+│   │   │   │       ├── Delete
+│   │   │   │       │   ├── DeleteUserCommand.cs
+│   │   │   │       │   └── DeleteUserCommandHandler.cs
+│   │   │   │       ├── Invitations
+│   │   │   │       │   ├── AcceptInvitationCommand.cs
+│   │   │   │       │   └── AcceptInvitationCommandHandler.cs
+│   │   │   │       ├── Login
+│   │   │   │       │   ├── LoginCommand.cs
+│   │   │   │       │   └── LoginCommandHandler.cs
+│   │   │   │       ├── Refresh
+│   │   │   │       │   ├── DeleteRefreshTokenCommand.cs
+│   │   │   │       │   ├── DeleteRefreshTokenHandler.cs
+│   │   │   │       │   ├── RefreshTokenCommand.cs
+│   │   │   │       │   └── RefreshTokenCommandHandler.cs
+│   │   │   │       └── Update
+│   │   │   │           ├── Email
+│   │   │   │           │   ├── UpdateUserEmailCommand.cs
+│   │   │   │           │   └── UpdateUserEmailCommandHandler.cs
+│   │   │   │           ├── Password
+│   │   │   │           │   ├── UpdateUserPasswordUserCommand.cs
+│   │   │   │           │   ├── UpdateUserPasswordUserCommandHandler.cs
+│   │   │   │           │   └── WithAdminPrivileges
+│   │   │   │           │       ├── UpdateUserPasswordAdministratorCommand.cs
+│   │   │   │           │       └── UpdateUserPasswordAdministratorCommandHandler.cs
+│   │   │   │           └── Role
+│   │   │   │               ├── UpdateUserRoleCommand.cs
+│   │   │   │               └── UpdateUserRoleCommandHandler.cs
+│   │   │   ├── DTO
+│   │   │   │   ├── Parameters
+│   │   │   │   │   ├── CreateDecimalParameterDto.cs
+│   │   │   │   │   ├── CreateIntegerParameterDto.cs
+│   │   │   │   │   ├── CreateTextParameterDto.cs
+│   │   │   │   │   └── GetParametersDto.cs
+│   │   │   │   ├── ParameterValues
+│   │   │   │   │   ├── CreateSampleBaseParameterValueDto.cs
+│   │   │   │   │   ├── CreateSampleDecimalParameterValueDto.cs
+│   │   │   │   │   ├── CreateSampleIntegerParameterValueDto.cs
+│   │   │   │   │   ├── CreateSampleTextParameterValueDto.cs
+│   │   │   │   │   ├── GetSampleBaseParameterValueDto.cs
+│   │   │   │   │   ├── GetSampleDecimalParameterValueDto.cs
+│   │   │   │   │   ├── GetSampleIntegerParameterValueDto.cs
+│   │   │   │   │   ├── GetSampleNumericParameterValueDto.cs
+│   │   │   │   │   └── GetSampleTextParameterValueDto.cs
+│   │   │   │   ├── Projects
+│   │   │   │   │   ├── GetProjectDto.cs
+│   │   │   │   │   ├── GetProjectsDto.cs
+│   │   │   │   │   └── GetSearchedProjectsDto.cs
+│   │   │   │   ├── Recipes
+│   │   │   │   │   ├── GetRecipeDetailsDto.cs
+│   │   │   │   │   ├── GetRecipeDto.cs
+│   │   │   │   │   ├── GetRecipesDto.cs
+│   │   │   │   │   └── GetSearchedRecipesDto.cs
+│   │   │   │   ├── Samples
+│   │   │   │   │   ├── CreateSampleStepDto.cs
+│   │   │   │   │   ├── GetRecentSamplesDto.cs
+│   │   │   │   │   ├── GetSampleDto.cs
+│   │   │   │   │   ├── GetSamplesDto.cs
+│   │   │   │   │   ├── GetSampleStepsDto.cs
+│   │   │   │   │   ├── GetSearchedSamplesDto.cs
+│   │   │   │   │   └── UpdateSampleStepDto.cs
+│   │   │   │   ├── Tags
+│   │   │   │   │   ├── GetSearchedTagsDto.cs
+│   │   │   │   │   ├── GetTagDto.cs
+│   │   │   │   │   └── GetTagsDto.cs
+│   │   │   │   └── Users
+│   │   │   │       ├── AuthenticatedResponse.cs
+│   │   │   │       ├── GetUserDto.cs
+│   │   │   │       ├── GetUsersDto.cs
+│   │   │   │       └── Invitations
+│   │   │   │           └── GetInvitationDto.cs
+│   │   │   ├── Exceptions
+│   │   │   │   ├── AccountNotActivatedException.cs
+│   │   │   │   ├── AmbiguousCreateSampleRequestException.cs
+│   │   │   │   ├── ColumnNotFoundException.cs
+│   │   │   │   ├── InvalidCredentialsException.cs
+│   │   │   │   ├── InvitationNotFoundExceptions.cs
+│   │   │   │   ├── PagingParametersInvalidFormatException.cs
+│   │   │   │   ├── ProjectNotActiveException.cs
+│   │   │   │   ├── RecipeNotFoundException.cs
+│   │   │   │   ├── SampleNotFoundException.cs
+│   │   │   │   ├── UnknownParameterTypeException.cs
+│   │   │   │   └── UserNotFoundException.cs
+│   │   │   ├── Extensions.cs
+│   │   │   ├── Invitations
+│   │   │   │   ├── Factories
+│   │   │   │   │   └── InvitationFactory.cs
+│   │   │   │   ├── InvitationOptions.cs
+│   │   │   │   └── InvitationOptionsSetup.cs
+│   │   │   ├── Queries
+│   │   │   │   ├── Parameters
+│   │   │   │   │   └── Get
+│   │   │   │   │       ├── GetParameterQuery.cs
+│   │   │   │   │       └── GetParametersQuery.cs
+│   │   │   │   ├── PingQuery.cs
+│   │   │   │   ├── Projects
+│   │   │   │   │   ├── Get
+│   │   │   │   │   │   ├── GetProjectQuery.cs
+│   │   │   │   │   │   ├── GetProjectsAmountQuery.cs
+│   │   │   │   │   │   └── GetProjectsQuery.cs
+│   │   │   │   │   └── Search
+│   │   │   │   │       ├── SearchProjectAmountQuery.cs
+│   │   │   │   │       └── SearchProjectQuery.cs
+│   │   │   │   ├── QueryParameters
+│   │   │   │   │   ├── OrderingParameters.cs
+│   │   │   │   │   └── PagingParameters.cs
+│   │   │   │   ├── Recipes
+│   │   │   │   │   ├── Get
+│   │   │   │   │   │   ├── GetRecipeDetailsQuery.cs
+│   │   │   │   │   │   ├── GetRecipeQuery.cs
+│   │   │   │   │   │   ├── GetRecipesAmountQuery.cs
+│   │   │   │   │   │   └── GetRecipesQuery.cs
+│   │   │   │   │   └── Search
+│   │   │   │   │       ├── SearchRecipeAmountQuery.cs
+│   │   │   │   │       └── SearchRecipeQuery.cs
+│   │   │   │   ├── Samples
+│   │   │   │   │   ├── Get
+│   │   │   │   │   │   ├── GetRecentSamplesQuery.cs
+│   │   │   │   │   │   ├── GetSampleQuery.cs
+│   │   │   │   │   │   ├── GetSamplesAmountQuery.cs
+│   │   │   │   │   │   └── GetSamplesQuery.cs
+│   │   │   │   │   └── Search
+│   │   │   │   │       ├── SearchSampleAmountQuery.cs
+│   │   │   │   │       └── SearchSampleQuery.cs
+│   │   │   │   ├── Tags
+│   │   │   │   │   ├── Get
+│   │   │   │   │   │   ├── GetMostPopularTagsQuery.cs
+│   │   │   │   │   │   ├── GetTagQuery.cs
+│   │   │   │   │   │   ├── GetTagsAmountQuery.cs
+│   │   │   │   │   │   └── GetTagsQuery.cs
+│   │   │   │   │   └── Search
+│   │   │   │   │       ├── SearchTagAmountQuery.cs
+│   │   │   │   │       └── SearchTagQuery.cs
+│   │   │   │   └── Users
+│   │   │   │       ├── GetUserQuery.cs
+│   │   │   │       ├── GetUsersAmountQuery.cs
+│   │   │   │       ├── GetUsersQuery.cs
+│   │   │   │       └── Invitations
+│   │   │   │           └── CheckInvitationQuery.cs
+│   │   │   ├── Services
+│   │   │   │   ├── ConvertDtoService.cs
+│   │   │   │   └── PasswordHasher.cs
+│   │   │   └── Terminal.Backend.Application.csproj
+│   │   ├── Terminal.Backend.Core
+│   │   │   ├── Abstractions
+│   │   │   │   ├── Enumeration.cs
+│   │   │   │   ├── Factories
+│   │   │   │   │   └── IInvitationFactory.cs
+│   │   │   │   └── Repositories
+│   │   │   │       ├── IInvitationRepository.cs
+│   │   │   │       ├── IParameterRepository.cs
+│   │   │   │       ├── IParameterValueRepository.cs
+│   │   │   │       ├── IProjectRepository.cs
+│   │   │   │       ├── IRecipeRepository.cs
+│   │   │   │       ├── IRefreshTokenRepository.cs
+│   │   │   │       ├── IRoleRepository.cs
+│   │   │   │       ├── ISampleRepository.cs
+│   │   │   │       ├── IStepsRepository.cs
+│   │   │   │       ├── ITagRepository.cs
+│   │   │   │       └── IUserRepository.cs
+│   │   │   ├── AssemblyReference.cs
+│   │   │   ├── Entities
+│   │   │   │   ├── Invitation.cs
+│   │   │   │   ├── Parameters
+│   │   │   │   │   ├── DecimalParameter.cs
+│   │   │   │   │   ├── IntegerParameter.cs
+│   │   │   │   │   ├── NumericParameter.cs
+│   │   │   │   │   ├── Parameter.cs
+│   │   │   │   │   └── TextParameter.cs
+│   │   │   │   ├── ParameterValues
+│   │   │   │   │   ├── DecimalParameterValue.cs
+│   │   │   │   │   ├── IntegerParameterValue.cs
+│   │   │   │   │   ├── ParameterValue.cs
+│   │   │   │   │   └── TextParameterValue.cs
+│   │   │   │   ├── Permission.cs
+│   │   │   │   ├── Project.cs
+│   │   │   │   ├── Recipe.cs
+│   │   │   │   ├── RecipeStep.cs
+│   │   │   │   ├── RefreshToken.cs
+│   │   │   │   ├── Role.cs
+│   │   │   │   ├── RolePermission.cs
+│   │   │   │   ├── Sample.cs
+│   │   │   │   ├── Step.cs
+│   │   │   │   ├── Tag.cs
+│   │   │   │   └── User.cs
+│   │   │   ├── Enums
+│   │   │   │   ├── ParameterType.cs
+│   │   │   │   └── Permission.cs
+│   │   │   ├── Exceptions
+│   │   │   │   ├── DecimalParameterValueNotValidException.cs
+│   │   │   │   ├── IntegerParameterValueNotValidException.cs
+│   │   │   │   ├── InvalidEmailException.cs
+│   │   │   │   ├── InvalidEntityIdException.cs
+│   │   │   │   ├── InvalidPasswordException.cs
+│   │   │   │   ├── InvalidPermissionNameException.cs
+│   │   │   │   ├── InvalidProjectNameException.cs
+│   │   │   │   ├── InvalidRecipeNameException.cs
+│   │   │   │   ├── InvalidRefreshToken.cs
+│   │   │   │   ├── InvalidSampleCodeException.cs
+│   │   │   │   ├── InvalidTagException.cs
+│   │   │   │   ├── ParameterNotFoundException.cs
+│   │   │   │   ├── ParameterValueCopyException.cs
+│   │   │   │   ├── ProjectNotFoundException.cs
+│   │   │   │   ├── RoleNotFoundException.cs
+│   │   │   │   ├── TagNotFoundException.cs
+│   │   │   │   ├── TerminalException.cs
+│   │   │   │   └── TextParameterValueNotValidException.cs
+│   │   │   ├── Extensions.cs
+│   │   │   ├── Terminal.Backend.Core.csproj
+│   │   │   └── ValueObjects
+│   │   │       ├── Comment.cs
+│   │   │       ├── Email.cs
+│   │   │       ├── InvitationId.cs
+│   │   │       ├── InvitationLink.cs
+│   │   │       ├── ParameterId.cs
+│   │   │       ├── ParameterName.cs
+│   │   │       ├── ParameterValueId.cs
+│   │   │       ├── Password.cs
+│   │   │       ├── PermissionId.cs
+│   │   │       ├── PermissionName.cs
+│   │   │       ├── ProjectId.cs
+│   │   │       ├── ProjectName.cs
+│   │   │       ├── RecipeId.cs
+│   │   │       ├── RecipeName.cs
+│   │   │       ├── RefreshTokenId.cs
+│   │   │       ├── RoleId.cs
+│   │   │       ├── SampleCode.cs
+│   │   │       ├── SampleId.cs
+│   │   │       ├── StepId.cs
+│   │   │       ├── TagId.cs
+│   │   │       ├── TagName.cs
+│   │   │       └── UserId.cs
+│   │   └── Terminal.Backend.Infrastructure
+│   │       ├── Administrator
+│   │       │   ├── AdministratorOptions.cs
+│   │       │   └── AdministratorOptionsSetup.cs
+│   │       ├── AssemblyReference.cs
+│   │       ├── Authentication
+│   │       │   ├── IAuthorizationService.cs
+│   │       │   ├── IPermissionService.cs
+│   │       │   ├── JwtOptions.cs
+│   │       │   ├── JwtProvider.cs
+│   │       │   ├── OptionsSetup
+│   │       │   │   ├── JwtBearerOptionsSetup.cs
+│   │       │   │   └── JwtOptionsSetup.cs
+│   │       │   ├── PermissionAuthorizationHandler.cs
+│   │       │   ├── PermissionAuthorizationPolicyProvider.cs
+│   │       │   ├── Requirements
+│   │       │   │   ├── PermissionRequirement.cs
+│   │       │   │   └── RoleRequirement.cs
+│   │       │   └── RoleAuthorizationHandler.cs
+│   │       ├── DAL
+│   │       │   ├── Behaviours
+│   │       │   │   └── UnitOfWorkBehaviour.cs
+│   │       │   ├── Configurations
+│   │       │   │   ├── InvitationConfiguration.cs
+│   │       │   │   ├── Parameters
+│   │       │   │   │   ├── DecimalParameterConfiguration.cs
+│   │       │   │   │   ├── IntegerParameterConfiguration.cs
+│   │       │   │   │   ├── NumericParameterConfiguration.cs
+│   │       │   │   │   ├── ParameterConfiguration.cs
+│   │       │   │   │   └── TextParameterConfiguration.cs
+│   │       │   │   ├── ParameterValues
+│   │       │   │   │   ├── DecimalParameterValueConfiguration.cs
+│   │       │   │   │   ├── IntegerParameterValueConfiguration.cs
+│   │       │   │   │   ├── ParameterValueConfiguration.cs
+│   │       │   │   │   └── TextParameterValueConfiguration.cs
+│   │       │   │   ├── PermissionConfiguration.cs
+│   │       │   │   ├── ProjectConfiguration.cs
+│   │       │   │   ├── RecipeConfiguration.cs
+│   │       │   │   ├── RecipeStepConfiguration.cs
+│   │       │   │   ├── RefreshTokenConfiguration.cs
+│   │       │   │   ├── RoleConfiguration.cs
+│   │       │   │   ├── RolePermissionConfiguration.cs
+│   │       │   │   ├── SampleConfiguration.cs
+│   │       │   │   ├── SampleStepConfiguration.cs
+│   │       │   │   ├── StepConfiguration.cs
+│   │       │   │   ├── TagConfiguration.cs
+│   │       │   │   └── UserConfiguration.cs
+│   │       │   ├── Extensions.cs
+│   │       │   ├── Handlers
+│   │       │   │   ├── Extensions.cs
+│   │       │   │   ├── Parameters
+│   │       │   │   │   ├── GetParameterQueryHandler.cs
+│   │       │   │   │   └── GetParametersQueryHandler.cs
+│   │       │   │   ├── PingQueryHandler.cs
+│   │       │   │   ├── Projects
+│   │       │   │   │   ├── GetProjectQueryHandler.cs
+│   │       │   │   │   ├── GetProjectsAmountQueryHandler.cs
+│   │       │   │   │   ├── GetProjectsQueryHandler.cs
+│   │       │   │   │   ├── SearchProjectAmountQueryHandler.cs
+│   │       │   │   │   └── SearchProjectQueryHandler.cs
+│   │       │   │   ├── Recipes
+│   │       │   │   │   ├── GetRecipeDetailsQueryHandler.cs
+│   │       │   │   │   ├── GetRecipeQueryHandler.cs
+│   │       │   │   │   ├── GetRecipesAmountQueryHandler.cs
+│   │       │   │   │   ├── GetRecipesQueryHandler.cs
+│   │       │   │   │   ├── SearchRecipeAmountQueryHandler.cs
+│   │       │   │   │   └── SearchRecipeQueryHandler.cs
+│   │       │   │   ├── Samples
+│   │       │   │   │   ├── GetRecentSamplesQueryHandler.cs
+│   │       │   │   │   ├── GetSampleQueryHandler.cs
+│   │       │   │   │   ├── GetSamplesAmountQueryHandler.cs
+│   │       │   │   │   ├── GetSamplesQueryHandler.cs
+│   │       │   │   │   ├── SearchSampleAmountQueryHandler.cs
+│   │       │   │   │   └── SearchSampleQueryHandler.cs
+│   │       │   │   ├── Tags
+│   │       │   │   │   ├── GetTagQueryHandler.cs
+│   │       │   │   │   ├── GetTagsAmountQueryHandler.cs
+│   │       │   │   │   ├── GetTagsQueryHandler.cs
+│   │       │   │   │   ├── SearchTagAmountQueryHandler.cs
+│   │       │   │   │   └── SearchTagQueryHandler.cs
+│   │       │   │   └── Users
+│   │       │   │       ├── GetUserQueryHandler.cs
+│   │       │   │       ├── GetUsersAmountQueryHandler.cs
+│   │       │   │       ├── GetUsersQueryHandler.cs
+│   │       │   │       └── Invitations
+│   │       │   │           └── CheckInvitationQueryHandler.cs
+│   │       │   ├── IUnitOfWork.cs
+│   │       │   ├── Migrations
+│   │       │   │   ├── 20231128230120_RecipeStep.cs
+│   │       │   │   ├── 20231128230120_RecipeStep.Designer.cs
+│   │       │   │   ├── 20231130223744_ParameterOrder.cs
+│   │       │   │   ├── 20231130223744_ParameterOrder.Designer.cs
+│   │       │   │   ├── 20231202160309_DependentParameters.cs
+│   │       │   │   ├── 20231202160309_DependentParameters.Designer.cs
+│   │       │   │   ├── 20231202190455_ParametersDefaultValues.cs
+│   │       │   │   ├── 20231202190455_ParametersDefaultValues.Designer.cs
+│   │       │   │   ├── 20231207220821_OnDeleteConfigurations.cs
+│   │       │   │   ├── 20231207220821_OnDeleteConfigurations.Designer.cs
+│   │       │   │   ├── 20240312201752_UserInvitationRelationshipCascadeBehaviour.cs
+│   │       │   │   ├── 20240312201752_UserInvitationRelationshipCascadeBehaviour.Designer.cs
+│   │       │   │   ├── 20251008133953_ChangeTextPatameterDefaultValue.cs
+│   │       │   │   ├── 20251008133953_ChangeTextPatameterDefaultValue.Designer.cs
+│   │       │   │   ├── 20251009131759_AddRefreshToken.cs
+│   │       │   │   ├── 20251009131759_AddRefreshToken.Designer.cs
+│   │       │   │   └── TerminalDbContextModelSnapshot.cs
+│   │       │   ├── PostgresOptions.cs
+│   │       │   ├── PostgresUnitOfWork.cs
+│   │       │   ├── README.md
+│   │       │   ├── Repositories
+│   │       │   │   ├── InvitationRepository.cs
+│   │       │   │   ├── ParameterRepository.cs
+│   │       │   │   ├── ParameterValueRepository.cs
+│   │       │   │   ├── ProjectRepository.cs
+│   │       │   │   ├── RecipeRepository.cs
+│   │       │   │   ├── RefreshTokenRepository.cs
+│   │       │   │   ├── RoleRepository.cs
+│   │       │   │   ├── SampleRepository.cs
+│   │       │   │   ├── StepsRepository.cs
+│   │       │   │   ├── TagRepository.cs
+│   │       │   │   └── UserRepository.cs
+│   │       │   ├── TerminalDbContext.cs
+│   │       │   └── ValueGenerators
+│   │       │       └── SampleCodeValueGenerator.cs
+│   │       ├── Extensions.cs
+│   │       ├── Mails
+│   │       │   └── MailService.cs
+│   │       ├── Middleware
+│   │       │   └── ExceptionMiddleware.cs
+│   │       ├── Terminal.Backend.Infrastructure.csproj
+│   │       └── TerminalDbSeeder.cs
+│   ├── Terminal.Backend.sln
+│   ├── test
+│   │   ├── README.md
+│   │   ├── Terminal.Backend.Architecture
+│   │   │   ├── ArchitectureTests.cs
+│   │   │   └── Terminal.Backend.Architecture.csproj
+│   │   ├── Terminal.Backend.Integration
+│   │   │   ├── Controllers
+│   │   │   │   ├── BaseControllerTests.cs
+│   │   │   │   └── PingControllerTests.cs
+│   │   │   ├── OptionsProvider.cs
+│   │   │   ├── Terminal.Backend.Integration.csproj
+│   │   │   └── TerminalTestApp.cs
+│   │   └── Terminal.Backend.Unit
+│   │       └── Terminal.Backend.Unit.csproj
+│   └── update-database.sh
+└── tree.txt
+
+154 directories, 553 files

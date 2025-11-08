@@ -1,11 +1,15 @@
 name: terminal.prod
 services:
   client:
+    cap_drop:
+     - ALL
     image: ghcr.io/flaviusaugustus/terminal/client:latest
     ports:
       - 60005:5173
 
   server:
+    cap_drop:
+     - ALL
     image: ghcr.io/flaviusaugustus/terminal/server:latest
     ports:
       - 60004:5006

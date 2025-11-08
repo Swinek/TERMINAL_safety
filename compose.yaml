@@ -1,6 +1,8 @@
 name: terminal
 services:
   client:
+    cap_drop:
+     - ALL
     container_name: terminal.client
     restart: always
     depends_on:
@@ -8,6 +10,8 @@ services:
         condition: service_healthy
 
   server:
+    cap_drop:
+     - ALL
     container_name: terminal.server
     restart: always
     environment:
