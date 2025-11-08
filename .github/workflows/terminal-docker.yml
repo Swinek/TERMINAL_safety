@@ -1,4 +1,6 @@
 on:
+  workflow_dispatch: # DODANE: Pozwala na ręczne uruchomienie ("Run workflow")
+  
   workflow_call:
     inputs:
       registry-url:
@@ -48,7 +50,6 @@ jobs:
         with:
           images: ${{ inputs.registry-url }}/${{ env.REPO_LC }}/${{ matrix.image-name }}
           tags: |
-            # set latest tag for default branch
             type=raw,value=latest
             type=sha
 
@@ -63,5 +64,6 @@ jobs:
 
       - name: Push compose stack
         run: |
-          docker compose -f compose.yaml -f compose.prod.yaml publish -y ghcr.io/flaviusaugustus/terminal/compose:${{ github.sha }}
-          docker compose -f compose.yaml -f compose.prod.yaml publish -y ghcr.io/flaviusaugustus/terminal/compose:latest
+          # NAPRAWIONE: Używa Twojej nazwy repozytorium zamiast flaviusaugustus
+          docker compose -f compose.yaml -f compose.prod.yaml publish -y ${{ inputs.registry-url }}/${{ env.REPO_LC }}/compose:${{ github.sha }}
+          docker compose -f compose.yaml -f compose.prod.yaml publish -y ${{ inputs.registry-url }}/${{ env.REPO_LC }}/compose:latest
